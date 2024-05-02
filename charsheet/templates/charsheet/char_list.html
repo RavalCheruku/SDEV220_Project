@@ -5,10 +5,14 @@
 </head>
 <body>
     <header>
-        <h1><b2><center>Character List</center></b2></h1>
+        <h1><b><center>Character List</center></b></h1>
     </header>
-    <article>
-        <p>Character information goes here</p>
-    </article>
+    {% for c in char %}
+        <article>
+            <h2>{{ c.char_name }} the {{ c.char_race }} {{ c.char_class }}</h2>
+            Background: {{ c.background }}<br>
+            Alignment: {{ c.alignment }}
+        </article>
+    {% endfor %}    
 </body>
 </html>
