@@ -14,3 +14,7 @@ class Character(models.Model):
     char_int = models.IntegerField()
     char_wis = models.IntegerField()
     char_char = models.IntegerField()
+
+#function to make the name of the object as the character name
+    def __str__(self):
+        return self.char_name
