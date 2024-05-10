@@ -1,0 +1,25 @@
+{% extends 'charsheet/base.html' %}
+
+{% block content %}
+    <header class="page-header">
+        {% if form.instance.pk %}
+            <a href="https://fontmeme.com/fonts/dragon-hunter-font/"><img src="https://fontmeme.com/permalink/240510/5ab20f8f7f87a9daac883c61121e7077.png" alt="dragon-hunter-font" border="0"></a>{% else %}<a href="https://fontmeme.com/fonts/dragon-hunter-font/"><img src="https://fontmeme.com/permalink/240510/54a562b6fc2ed5b336f6ef83bbd09e8c.png" alt="dragon-hunter-font" border="0"></a>
+            {% endif %}
+    </header>
+    <aside class="actions">
+        {% if form.instance.pk %}
+            <a class="btn btn-secondary" href="{% url 'char_list' %}">
+                {% include './icons/list.svg' %}
+            </a>
+        {% endif %}
+        <a class="btn btn-secondary" href="{% if form.instance.pk %}{% url 'char_detail' pk=form.instance.pk %}{% else %}{% url 'char_list' %}{% endif %}">
+            {% include './icons/box-arrow-left.svg' %}
+        </a>
+    </aside>
+    <br>
+    <form method="POST"  class="character-form">{% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="save btn btn-secondary">Submit</button>
+    </form>
+    <br>
+    {% endblock %}

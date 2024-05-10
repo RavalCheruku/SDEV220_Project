@@ -1,0 +1,62 @@
+{% extends 'charsheet/base.html' %}
+
+{% block content %}
+    <header class="page-header"><center><a href="https://fontmeme.com/fonts/dragon-hunter-font/"><img src="https://fontmeme.com/permalink/240507/86377ae54c08f0f624ed5c08e314615e.png" alt="dragon-hunter-font" border="0"></a></center></header>
+    {% load modifiers %}
+
+    {% if char %}    
+        <article>
+            <aside class="actions" style="background-color: black; width: 100%;">
+                <a class="btn btn-secondary" href="{% url 'char_list' %}">
+                    {% include './icons/box-arrow-left.svg' %}
+                </a>
+                <a class="btn btn-secondary" href="{% url 'char_edit' pk=char.pk %}">
+                  {% include './icons/pencil-fill.svg' %}
+                </a>
+                <a class="btn btn-secondary" href="{% url 'char_delete' pk=char.pk %}">
+                    <span class="red-box">
+                        {% include './icons/trash3.svg' %}
+                    </span>                    
+                </a>  
+            </aside>
+        </article>
+        <br>
+        <article class="character-details">
+            Name: {{ char.Name }}&#8192;&#8192;&#8192;&#8192;&#8192; Race: {{ char.Race }}&#8192;&#8192;&#8192;&#8192;&#8192; Class: {{ char.Class }}&#8192;&#8192;&#8192;&#8192;&#8192; Background: {{ char.Background }}&#8192;&#8192;&#8192;&#8192;&#8192; Alignment: {{ char.Alignment }}&#8192;&#8192;&#8192;&#8192;&#8192; Level: {{ char.Level }}
+    <p>
+        Strength: {{ char.Strength }}&#8192;&#8192;&#8192;&#8192;&#8192; Modifier: {{ char.Strength|modifier }}<br>
+        Dexterity: {{ char.Dexterity }}&#8192;&#8192;&#8192;&#8192;&#8192; Modifier: {{ char.Dexterity|modifier }}<br>
+        Constitution: {{ char.Constitution }}&#8192;&#8192;&#8192;&#8192;&#8192; Modifier: {{ char.Constitution|modifier }}<br>
+        Intelligence: {{ char.Intelligence }}&#8192;&#8192;&#8192;&#8192;&#8192; Modifier: {{ char.Intelligence|modifier }}<br>
+        Wisdom: {{ char.Wisdom }}&#8192;&#8192;&#8192;&#8192;&#8192; Modifier: {{ char.Wisdom|modifier }}<br>
+        Charisma: {{ char.Charisma }}&#8192;&#8192;&#8192;&#8192;&#8192; Modifier: {{ char.Charisma|modifier }}<br>
+        Proficiency Modifier: +{{ proficiency_modifier }}
+    </p>
+    <p>
+        Saving Throws:<br>
+        {% for saving_throw in saving_throws %}
+            {% with base_modifier=saving_throw.default_value|modifier %}
+                <input type="checkbox" id="{{ saving_throw.name }}" name="saving_throws" value="{{ saving_throw.name }}">
+                <label for="{{ saving_throw.name }}">{{ saving_throw.name }}: +{{ base_modifier }}</label>
+                <!-- Display proficient saving throw next to default value in brackets -->
+                <span>(+{{ base_modifier|add:proficiency_modifier }})</span><br>
+            {% endwith %}
+        {% endfor %}
+    </p>
+    <p>
+        Skill Proficiencies:<br>
+        {% for skill in skills %}
+            {% with ability_modifier=skill.ability|modifier %}
+                <input type="checkbox" id="{{ skill.name }}" name="skills" value="{{ skill.name }}"
+                <label for="{{ skill.name }}">{{ skill.name }}: +{{ ability_modifier }}</label>
+                <!-- Display proficient skill next to default value in brackets -->
+                <span>(+{{ ability_modifier|add:proficiency_modifier }})</span><br>
+            {% endwith %}
+        {% endfor %}
+    </p>   
+    {% else %}
+        <p>No character found.</p>
+    {% endif %}
+</article>
+{% endblock %}
+
