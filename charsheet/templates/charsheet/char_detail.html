@@ -22,7 +22,7 @@
         </article>
         <br>
         <article class="character-details">
-            Name: {{ char.Name }}&#8192;&#8192;&#8192;&#8192;&#8192; Race: {{ char.Race }}&#8192;&#8192;&#8192;&#8192;&#8192; Class: {{ char.Class }}&#8192;&#8192;&#8192;&#8192;&#8192; Background: {{ char.Background }}&#8192;&#8192;&#8192;&#8192;&#8192; Alignment: {{ char.Alignment }}&#8192;&#8192;&#8192;&#8192;&#8192; Level: {{ char.Level }}
+            Name: {{ char.Name }}&#8192;&#8192;&#8192;&#8192;&#8192; Race: {{ char.Race }}&#8192;&#8192;&#8192;&#8192;&#8192; Class: {{ char.Class }}&#8192;&#8192;&#8192;&#8192;&#8192;<br> Background: {{ char.Background }}&#8192;&#8192;&#8192;&#8192;&#8192; Alignment: {{ char.Alignment }}&#8192;&#8192;&#8192;&#8192;&#8192; Level: {{ char.Level }}
     <p>
         Strength: {{ char.Strength }}&#8192;&#8192;&#8192;&#8192;&#8192; Modifier: {{ char.Strength|modifier }}<br>
         Dexterity: {{ char.Dexterity }}&#8192;&#8192;&#8192;&#8192;&#8192; Modifier: {{ char.Dexterity|modifier }}<br>
@@ -37,9 +37,9 @@
         {% for saving_throw in saving_throws %}
             {% with base_modifier=saving_throw.default_value|modifier %}
                 <input type="checkbox" id="{{ saving_throw.name }}" name="saving_throws" value="{{ saving_throw.name }}">
-                <label for="{{ saving_throw.name }}">{{ saving_throw.name }}: +{{ base_modifier }}</label>
+                <label for="{{ saving_throw.name }}">{{ saving_throw.name }}: {{ base_modifier }}</label>
                 <!-- Display proficient saving throw next to default value in brackets -->
-                <span>(+{{ base_modifier|add:proficiency_modifier }})</span><br>
+                <span>({{ base_modifier|add:proficiency_modifier }})</span><br>
             {% endwith %}
         {% endfor %}
     </p>
@@ -48,9 +48,9 @@
         {% for skill in skills %}
             {% with ability_modifier=skill.ability|modifier %}
                 <input type="checkbox" id="{{ skill.name }}" name="skills" value="{{ skill.name }}"
-                <label for="{{ skill.name }}">{{ skill.name }}: +{{ ability_modifier }}</label>
+                <label for="{{ skill.name }}">{{ skill.name }}: {{ ability_modifier }}</label>
                 <!-- Display proficient skill next to default value in brackets -->
-                <span>(+{{ ability_modifier|add:proficiency_modifier }})</span><br>
+                <span>({{ ability_modifier|add:proficiency_modifier }})</span><br>
             {% endwith %}
         {% endfor %}
     </p>   
